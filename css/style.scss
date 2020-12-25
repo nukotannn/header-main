@@ -1,0 +1,403 @@
+@charset "UTF-8";
+
+/* ====================================================================
+* ## mixin
+* ====================================================================== */
+
+//マップ型変数breakpointを定義
+$breakpoints : (
+"sm":"screen and (max-width:767px)",
+"md":"screen and (min-width:768px)",
+"lg":"screen and (min-width:992px)",
+"xl":"screen and (min-width:1200px)"
+);
+
+
+//メディアクエリ用のmixinを定義。デフォ値はmd
+@mixin mq($breakpoint:md){
+//map-get(マップ型変数, キー)で値を取得
+@media#{map-get($breakpoints, $breakpoint)} {
+//この中をカスタムできる
+@content;
+}
+}
+
+
+/* ====================================================================
+* ## common - 全体に共通するスタイル
+* ====================================================================== */
+@include mq(sm){
+.is-pc{
+  display: none;//スマホの時は表示せず、PCの時だけ表示する
+}
+}
+
+@include mq(md){
+.is-sp{
+    display: none;//スマホの時は表示して、PCの時は表示しない
+}
+}
+
+/* ====================================================================
+* ## base
+* ====================================================================== */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, button, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+body {
+margin: 0;
+padding: 0;
+font-family:"游ゴシック体", "Yu Gothic", "yugothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", "meiryo", "MS Pゴシック", "MS PGothic", sans-serif;
+color: #333;
+font-weight: 400;
+line-height: 1.5;
+letter-spacing: 0.1em;
+background:#fff;
+overflow-x: hidden;
+overflow-wrap: break-word;
+}
+
+h1,h2,h3,h4,h5,p,ul,ol,li,dl,dt,dd,form,figure,form,select,input,textarea {
+margin: 0px;
+padding: 0px;
+font-size: 100%;
+}
+
+ul,li,dl,dt,dd {
+margin:0;
+padding:0;
+list-style: none;
+}
+
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+
+/* ====================================================================
+* ## image
+* ====================================================================== */
+
+img {
+border: none;
+max-width: 100%;
+height: auto;
+vertical-align: middle;
+}
+
+figure {
+margin: 0;
+}
+
+
+
+/* ====================================================================
+* ## table
+* ====================================================================== */
+
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+
+
+/* ====================================================================
+* ## link
+* ====================================================================== */
+
+a { 
+text-decoration: none; 
+
+}
+
+a:hover { 
+transition: all .6s ease;
+opacity: .7;
+cursor: pointer;
+}
+
+
+.container {
+width: 1200px;
+max-width: 100%;
+margin: 0 auto;
+}
+
+
+/* =====================================================================
+ * ## header
+======================================================================= */
+
+/*ハンバーガーボタン*/
+.hamburger {
+  display : block;
+  position: fixed;
+  z-index : 3;
+  right : 20px;
+  top   : 30px;
+  width : 42px;
+  height: 42px;
+  cursor: pointer;
+  text-align: center;
+
+@include mq(md){
+  display: none;
+}
+}
+.hamburger span {
+  display : block;
+  position: absolute;
+  width   : 30px;
+  height  : 2px ;
+  left    : 6px;
+  background : #fff;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition   : 0.3s ease-in-out;
+  transition        : 0.3s ease-in-out;
+}
+.hamburger span:nth-child(1) {
+  top: 10px;
+}
+.hamburger span:nth-child(2) {
+  top: 20px;
+}
+.hamburger span:nth-child(3) {
+  top: 30px;
+}
+
+/* ナビ開いてる時のボタン */
+.hamburger.active span:nth-child(1) {
+  top : 16px;
+  left: 6px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform   : rotate(-45deg);
+  transform        : rotate(-45deg);
+}
+
+.hamburger.active span:nth-child(2),
+.hamburger.active span:nth-child(3) {
+  top: 16px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform   : rotate(45deg);
+  transform        : rotate(45deg);
+}
+
+nav.globalMenuSp {
+  position: fixed;
+  z-index : 2;
+  top  : 0;
+  left : 0;
+  color: #333;
+  background: #fff;
+  text-align: center;
+  transform: translateY(-100%);
+  transition: all 0.6s;
+  width: 100%;
+}
+
+nav.globalMenuSp ul {
+  background: #3F51B5;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  height: 500px;
+}
+
+nav.globalMenuSp ul li {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  border-bottom: 2px solid #fff;
+}
+nav.globalMenuSp ul li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+nav.globalMenuSp ul li:hover{
+  opacity: .5;
+  /* backgroud */
+}
+
+nav.globalMenuSp ul li a {
+  display: block;
+  color: #fff;
+  padding: 2em 0;
+  text-decoration :none;
+  font-size: 18px;
+}
+
+/* このクラスを、jQueryで付与・削除する */
+nav.globalMenuSp.active {
+  transform: translateY(0%);
+}
+  
+
+/* PC */
+header{
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  padding: 30px 0;
+  background-color: #3F51B5;
+  z-index: 5;
+}
+.container{
+  display: flex;
+}
+
+@include mq(md){
+.header-left {
+  margin-left: 20px;
+}
+}
+
+@include mq(sm){
+.header-left {
+  margin-left: 20px;
+}
+}
+
+.header-right{
+  margin-left: auto; 
+}
+.header-nav{
+  display: flex;
+
+@include mq(md){
+  margin-right: 20px;
+}
+
+@include mq(sm){
+  display: none;
+}
+}
+.header-nav-item{
+  margin-left: 40px;
+}
+.header-nav-item a{
+  color: #fff;
+  font-size: 16px;
+  line-height: 2.5;
+}
+.header-nav-item a{
+  position: relative;
+}
+.header-nav-item a.is-active::after{
+  content:"";
+  position: absolute;
+  left:0;
+  bottom: -10px;
+  width: 100%;
+  height: 3px;
+  background: red;
+}
+
+/* =====================================================================
+ * ## main
+======================================================================= */
+.mainvisual{
+  background-image: url(../img/mainvisual@2x.png);
+  height: 700px;
+  background-size: cover;
+  position: relative;
+  top:90px;
+
+@include mq(sm){
+  height: 500px;
+}
+}
+.mainvisual-container{
+  position: absolute;
+  top:55%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  text-align: center;
+
+@include mq(md){
+  top:50%;
+}
+}
+.mainvisual-title{
+  font-size: 64px;
+  font-weight: bold;
+  color:#333333;
+  margin-bottom: 32px;
+
+@include mq(sm){
+  font-size: 28px;
+}
+}
+
+.mainvisual-read{
+  font-size: 24px;
+  font-weight: bold;
+  color:#333333;
+  margin-bottom: 40px;
+
+@include mq(sm){
+  font-size: 16px;
+}
+}
+.btn{
+  display: block;
+  margin:auto;
+  padding: 20px;
+  width: 390px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #3F51B5;
+  border-radius: 10px;
+  box-shadow:0 3px 6px rgba(0,0,0,0.5);
+
+@include mq(sm){
+  font-size: 14px;
+  width: 200px;
+}
+}
+.btn:hover{
+  cursor: pointer;
+  opacity: .7;
+}
+/* =====================================================================
+ * ## about
+======================================================================= */
+
+/* =====================================================================
+ * ## service
+======================================================================= */
+
+/* =====================================================================
+ * ## plans
+======================================================================= */
+
+/* =====================================================================
+ * ## contact
+======================================================================= */
+
+/* =====================================================================
+ * ## footer
+======================================================================= */
+
+
